@@ -51,6 +51,7 @@ export const startAnalysisSession = async (
   talkContext: string,
 ): Promise<{ analysis: Analysis; chat: Chat }> => {
   let mediaPart: Part;
+  let loggableMediaInfo: object;
 
   if (inputType === 'youtube') {
     if (typeof inputData !== 'string' || !inputData) {
@@ -64,6 +65,11 @@ export const startAnalysisSession = async (
         fps: settings.fps,
       },
     };
+    loggableMediaInfo = {
+      type: 'youtube',
+      uri: inputData,
+      fps: settings.fps,
+    };
   } else {
     if (!(inputData instanceof File)) {
       throw new Error('A valid file must be provided for video/audio analysis.');
@@ -74,6 +80,13 @@ export const startAnalysisSession = async (
         fps: settings.fps,
       };
     }
+    loggableMediaInfo = {
+        type: 'file',
+        name: inputData.name,
+        size: inputData.size,
+        mimeType: inputData.type,
+        ...(inputType === 'video' && { fps: settings.fps }),
+    };
   }
 
   const contextPromptSection = talkContext.trim()
@@ -90,13 +103,25 @@ Please tailor your feedback based on this context. For example, if the audience 
   // Per documentation, the media part must come before the text prompt for optimal results.
   const orderedParts = [mediaPart, { text: dynamicPrompt }];
 
+  const modelConfig = {
+    responseMimeType: 'application/json',
+    responseSchema: ANALYSIS_SCHEMA,
+  };
+
+  const modelName = 'gemini-2.5-pro';
+  
+  console.log("Sending request to Gemini model with the following parameters:", {
+    model: modelName,
+    media: loggableMediaInfo,
+    promptLength: dynamicPrompt.length,
+    config: modelConfig,
+    language: settings.language,
+  });
+
   const result = await ai.models.generateContent({
-    model: 'gemini-2.5-pro',
+    model: modelName,
     contents: { parts: orderedParts },
-    config: {
-      responseMimeType: 'application/json',
-      responseSchema: ANALYSIS_SCHEMA,
-    },
+    config: modelConfig,
   });
 
   let analysis: Analysis;
@@ -116,7 +141,7 @@ Please tailor your feedback based on this context. For example, if the audience 
   // Create a new chat session, seeding it with the history of the initial analysis.
   // Add a system instruction to guide the model's behavior in the chat.
   const chat = ai.chats.create({
-    model: 'gemini-2.5-pro',
+    model: modelName,
     history: [{ role: 'user', parts: orderedParts }, modelContent],
     config: {
         systemInstruction: `You have just provided a detailed analysis of a public speaking performance in JSON format. The user can see this analysis. Now, you must switch to a conversational coaching role. Answer the user's follow-up questions in a natural, helpful, and conversational manner, using the language: ${settings.language}. Do NOT output JSON again unless the user explicitly asks for it.`

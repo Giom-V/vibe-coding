@@ -84,8 +84,16 @@ const App: React.FC = () => {
       setAnalysisContext(talkContext);
     } catch (err) {
       if (err instanceof Error) {
-        setError(err.message);
+        console.error("Analysis failed:", err);
+        if (err.message && err.message.toUpperCase().includes('INTERNAL')) {
+          setError(
+            "An internal error occurred. This can sometimes happen with long videos or high FPS settings. Please try reducing the 'Frames Per Second (FPS)' in the settings and try again."
+          );
+        } else {
+          setError(err.message);
+        }
       } else {
+        console.error("An unexpected error occurred:", err);
         setError('An unexpected error occurred.');
       }
     } finally {
