@@ -26,10 +26,30 @@ Projects are organized by week in reverse chronological order. Each project fold
 
 | App | Link to app | Code |
 | --- | ----------- | ---- |
+| Talk coach | **[Try it on AI Studio](https://aistudio.google.com/apps/drive/18XuOzEU1zuseoaPtXrdVUeTY3nNbM80u?fullscreenApplet=true&appParams=value%253DcOp5rklR3jI)** | [talk_analyzer](./talk_analyzer/) |
+| Magic mirror | **[Try it on Cloud run](goo.gle/giom-magic-mirror)** | [https://github.com/Giom-V/magic-mirror](https://github.com/Giom-V/magic-mirror) |
 | Cleaning log scanner | **[Try it on AI Studio](https://ai.studio/apps/drive/1FH1F_qoepoiRB7AjUPtqcSIjx1ldU-F_?fullscreenApplet=true)** | [cleaning_log](./cleaning_log/) |
 | Escape room | **[Try it on AI Studio](https://aistudio.google.com/apps/drive/1ZifLzSuOqzg3Ita9CC7kmRweauVanCy7?fullscreenApplet=true)** | [escape_room](./escape_room/) |
 | AI-powered resume | **[Try it on AI Studio](https://aistudio.google.com/apps/drive/1VRVKZ8qFAG6Rgc1np3u8g5eBgbmI9094?fullscreenApplet=true)** | [ai_powered_resume](./ai_powered_resume/) |
 | Audio Guide for Family Holidays | **[Try it on AI Studio](https://aistudio.google.com/apps/drive/1SgDNQ_mHx_k2KOJm1vIrIX8nIVwS3btT?fullscreenApplet=true)** | [audio_guide](./audio_guide/) |
+
+---
+### Oct 10th: Cleaning log scanner
+
+*   **Description:** A coach for your talks. Give it a recording or youtube link and it will tell you how to get even better.
+*   **AI Tools Used:** [AI Studio](https://ai.studio/apps) and [Gemini Video Understanding](https://ai.google.dev/gemini-api/docs/video-understanding).
+*   **[Try it on AI Studio](https://aistudio.google.com/apps/drive/18XuOzEU1zuseoaPtXrdVUeTY3nNbM80u?fullscreenApplet=true&appParams=value%253DcOp5rklR3jI)**
+*   **Project folder:** [talk_analyzer](./talk_analyzer/)
+
+
+---
+### Oct 3rd: Magic Mirror
+
+*   **Description:** A magic mirror that can transform you into any fantasy character or tell you sotries
+*   **AI Tools Used:** [Jules](https://jules.google.com/), [Gemini Live](https://ai.google.dev/gemini-api/docs/live), [Nano-banana](https://ai.google.dev/gemini-api/docs/image-generation) and [Nano-banana](https://ai.google.dev/gemini-api/docs/music-generation).
+*   **[Try it on Cloud Run (as long as I have credits)](goo.gle/giom-magic-mirror)**
+*   **Project repo:** [https://github.com/Giom-V/magic-mirror](https://github.com/Giom-V/magic-mirror)
+
 
 ---
 ### Sep 26th: Cleaning log scanner
@@ -74,5 +94,6 @@ Projects are organized by week in reverse chronological order. Each project fold
 * Be patient (or do something at the same time like reading a book, catching-up with emails, or just play a video game, the generation take a couple of minutes each time.
 * ALWAYS DOUBLE CHECK. You not a developper anymore (if you ever were), you're a product owner and a QC.
 * The longer and more detailled the prompt is, the better the result be, but personally I usually prefer to take my time and work iteratively.
+* LLMs.txt version of the pages (like for for Gemini: https://ai.google.dev/gemini-api/docs/llms.txt) are a great way to easily copy-paste instructions to LLMs.
 * If you're not in a rush, fix one thing at a time instead of sending mutltiple problems to the model at the same time (unless you are certain they are closely related).
 * Always ask the model to create a very modular app with dedicated files for each functionality or module (or to list the prompts so it's easy for you to find and manually update them). Since most of the time the AI tries to completely rewrite the files, it will be quicker if it only has to rewrite a small one instead of a very long one when you only want to update something simple.
