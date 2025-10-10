@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import type { Settings } from '../types';
 
 interface SettingsModalProps {
@@ -14,6 +14,25 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, currentS
   useEffect(() => {
     setSettings(currentSettings);
   }, [currentSettings, isOpen]);
+
+  const maxDurationMessage = useMemo(() => {
+    // Using a slightly lower limit to provide a safety margin.
+    const TOKEN_LIMIT_WITH_MARGIN = 480000; 
+    const TOKENS_PER_FRAME = 300; // Actually 258 but we took some margin
+    
+    if (!settings.fps || settings.fps <= 0) {
+      return 'N/A';
+    }
+
+    const maxFrames = TOKEN_LIMIT_WITH_MARGIN / TOKENS_PER_FRAME;
+    const maxDurationSeconds = maxFrames / settings.fps;
+    const maxDurationMinutes = maxDurationSeconds / 60;
+    
+    if (maxDurationMinutes < 1) {
+        return `${Math.round(maxDurationSeconds)} seconds`;
+    }
+    return `${maxDurationMinutes.toFixed(1)} minutes`;
+  }, [settings.fps]);
 
   if (!isOpen) {
     return null;
@@ -74,7 +93,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, currentS
 
           <div>
             <label htmlFor="fps-input" className="block text-sm font-medium text-slate-300 mb-2">
-              Video Frames Per Second (FPS)
+              Video Frames Per Second (FPS) for Analysis
             </label>
             <input
               type="number"
@@ -87,6 +106,9 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, currentS
               className="w-full bg-slate-700 border border-slate-600 rounded-md px-3 py-2 text-white placeholder-slate-500 focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
             />
             <p className="text-xs text-slate-500 mt-1">Default is 0.2 (1 frame every 5 sec). Higher values improve detail but use more tokens.</p>
+            <p className="text-xs text-sky-400 mt-1" aria-live="polite">
+              Maximum video duration: <span className="font-bold">{maxDurationMessage}</span>
+            </p>
           </div>
         </div>
 

@@ -7,6 +7,11 @@ export interface Rating {
   justification: string;
 }
 
+export interface QuestionAndAnswer {
+  question: string;
+  answer: string;
+}
+
 export interface Analysis {
   overallSummary: string;
   pacing: Rating;
@@ -18,6 +23,7 @@ export interface Analysis {
   strengths: string[];
   areasForImprovement: string[];
   suggestedQuestions: string[];
+  questionAndAnswers: QuestionAndAnswer[];
 }
 
 export interface ChatMessage {

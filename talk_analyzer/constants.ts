@@ -24,6 +24,7 @@ Also, provide:
 - A list of key strengths.
 - A list of specific, actionable areas for improvement. This is the most important part of your feedback.
 - A list of 3 concise, insightful follow-up questions that the speaker might ask to delve deeper into your feedback. For example, "How could I have better explained the quantum computing section?".
+- A list of all questions asked by the audience and the answers given by the speaker. If no Q&A session is present in the recording, return an empty array for this field.
 
 Respond ONLY with the JSON object adhering to the provided schema. Do not include any other text, markdown, or explanations outside of the JSON structure.
 All feedback, justifications, summaries, and questions MUST be in the following language: {language}.
@@ -105,6 +106,24 @@ export const ANALYSIS_SCHEMA = {
       description: "A list of 3 suggested follow-up questions for the user.",
       items: { type: Type.STRING },
     },
+    questionAndAnswers: {
+        type: Type.ARRAY,
+        description: "A list of questions asked and answers provided during the talk.",
+        items: {
+            type: Type.OBJECT,
+            properties: {
+                question: {
+                    type: Type.STRING,
+                    description: "The question that was asked by an audience member."
+                },
+                answer: {
+                    type: Type.STRING,
+                    description: "The answer that was provided by the speaker."
+                }
+            },
+            required: ["question", "answer"],
+        }
+    },
   },
   required: [
     "overallSummary",
@@ -117,5 +136,6 @@ export const ANALYSIS_SCHEMA = {
     "strengths",
     "areasForImprovement",
     "suggestedQuestions",
+    "questionAndAnswers",
   ],
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Analysis, Rating } from '../types';
+import type { Analysis, Rating, QuestionAndAnswer } from '../types';
 import RatingStars from './RatingStars';
 
 interface AnalysisDisplayProps {
@@ -32,13 +32,35 @@ const ListCard: React.FC<{ title: string; items: string[]; itemColor: string }> 
   </div>
 );
 
+const QnaCard: React.FC<{ title: string; items: QuestionAndAnswer[] }> = ({ title, items }) => (
+    <div className="bg-slate-800 p-6 rounded-lg">
+      <h2 className="text-2xl font-bold text-sky-400 mb-4">{title}</h2>
+      <div className="space-y-6">
+        {items.map((item, index) => (
+          <div key={index} className="border-l-4 border-slate-700 pl-4">
+            <p className="font-semibold text-slate-200 flex items-start text-base">
+              <span className="text-sky-400 mr-2 font-bold flex-shrink-0">Q:</span>
+              <span>{item.question}</span>
+            </p>
+            <p className="text-slate-400 mt-2 flex items-start text-sm">
+              <span className="text-slate-500 mr-2 font-bold flex-shrink-0">A:</span>
+              <span>{item.answer}</span>
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+);
+
+
 const AnalysisDisplay: React.FC<AnalysisDisplayProps> = ({ analysis, source, context }) => {
   const handleDownload = () => {
     const { 
       overallSummary, 
       pacing, clarity, engagement, useOfExamples, creativity, stagePresence, 
       strengths, 
-      areasForImprovement 
+      areasForImprovement,
+      questionAndAnswers
     } = analysis;
 
     const ratingToMd = (title: string, rating: Rating) => {
@@ -47,6 +69,16 @@ const AnalysisDisplay: React.FC<AnalysisDisplayProps> = ({ analysis, source, con
 
     const listToMd = (title: string, items: string[]) => {
       return `### ${title}\n${items.map(item => `- ${item}`).join('\n')}\n\n`;
+    };
+
+    const qnaToMd = (title: string, items: QuestionAndAnswer[]) => {
+      if (!items || items.length === 0) return '';
+      let content = `## ${title}\n\n`;
+      items.forEach((item) => {
+          content += `**Q:** ${item.question}\n\n`;
+          content += `**A:** ${item.answer}\n\n---\n\n`;
+      });
+      return content;
     };
 
     let sourceSection = '';
@@ -76,7 +108,8 @@ const AnalysisDisplay: React.FC<AnalysisDisplayProps> = ({ analysis, source, con
       + ratingToMd('Stage Presence', stagePresence)
       + `## Key Areas\n`
       + listToMd('Strengths', strengths)
-      + listToMd('Areas for Improvement', areasForImprovement);
+      + listToMd('Areas for Improvement', areasForImprovement)
+      + qnaToMd('Questions & Answers', questionAndAnswers);
 
     const blob = new Blob([markdownContent], { type: 'text/markdown;charset=utf-8' });
     const url = URL.createObjectURL(blob);
@@ -121,6 +154,10 @@ const AnalysisDisplay: React.FC<AnalysisDisplayProps> = ({ analysis, source, con
         <ListCard title="Strengths" items={analysis.strengths} itemColor="bg-green-400" />
         <ListCard title="Areas for Improvement" items={analysis.areasForImprovement} itemColor="bg-yellow-400" />
       </div>
+
+      {analysis.questionAndAnswers && analysis.questionAndAnswers.length > 0 && (
+          <QnaCard title="Questions & Answers" items={analysis.questionAndAnswers} />
+      )}
     </div>
   );
 };

@@ -91,7 +91,7 @@ Please tailor your feedback based on this context. For example, if the audience 
   const orderedParts = [mediaPart, { text: dynamicPrompt }];
 
   const result = await ai.models.generateContent({
-    model: 'gemini-2.5-flash',
+    model: 'gemini-2.5-pro',
     contents: { parts: orderedParts },
     config: {
       responseMimeType: 'application/json',
@@ -116,7 +116,7 @@ Please tailor your feedback based on this context. For example, if the audience 
   // Create a new chat session, seeding it with the history of the initial analysis.
   // Add a system instruction to guide the model's behavior in the chat.
   const chat = ai.chats.create({
-    model: 'gemini-2.5-flash',
+    model: 'gemini-2.5-pro',
     history: [{ role: 'user', parts: orderedParts }, modelContent],
     config: {
         systemInstruction: `You have just provided a detailed analysis of a public speaking performance in JSON format. The user can see this analysis. Now, you must switch to a conversational coaching role. Answer the user's follow-up questions in a natural, helpful, and conversational manner, using the language: ${settings.language}. Do NOT output JSON again unless the user explicitly asks for it.`
