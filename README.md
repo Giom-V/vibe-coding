@@ -34,7 +34,7 @@ Projects are organized by week in reverse chronological order. Each project fold
 | Audio Guide for Family Holidays | **[Try it on AI Studio](https://aistudio.google.com/apps/drive/1SgDNQ_mHx_k2KOJm1vIrIX8nIVwS3btT?fullscreenApplet=true)** | [audio_guide](./audio_guide/) |
 
 ---
-### Oct 10th: Cleaning log scanner
+### Oct 10th: Talk coach
 
 *   **Description:** A coach for your talks. Give it a recording or youtube link and it will tell you how to get even better.
 *   **AI Tools Used:** [AI Studio](https://ai.studio/apps) and [Gemini Video Understanding](https://ai.google.dev/gemini-api/docs/video-understanding).
@@ -45,7 +45,7 @@ Projects are organized by week in reverse chronological order. Each project fold
 ---
 ### Oct 3rd: Magic Mirror
 
-*   **Description:** A magic mirror that can transform you into any fantasy character or tell you sotries
+*   **Description:** A magic mirror that can transform you into any fantasy character or tell you stories
 *   **AI Tools Used:** [Jules](https://jules.google.com/), [Gemini Live](https://ai.google.dev/gemini-api/docs/live), [Nano-banana](https://ai.google.dev/gemini-api/docs/image-generation) and [Nano-banana](https://ai.google.dev/gemini-api/docs/music-generation).
 *   **[Try it on Cloud Run (as long as I have credits)](goo.gle/giom-magic-mirror)**
 *   **Project repo:** [https://github.com/Giom-V/magic-mirror](https://github.com/Giom-V/magic-mirror)
