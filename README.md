@@ -46,7 +46,7 @@ Projects are organized by week in reverse chronological order. Each project fold
 ### Oct 3rd: Magic Mirror
 
 *   **Description:** A magic mirror that can transform you into any fantasy character or tell you stories
-*   **AI Tools Used:** [Jules](https://jules.google.com/), [Gemini Live](https://ai.google.dev/gemini-api/docs/live), [Nano-banana](https://ai.google.dev/gemini-api/docs/image-generation) and [Nano-banana](https://ai.google.dev/gemini-api/docs/music-generation).
+*   **AI Tools Used:** [Jules](https://jules.google.com/), [Gemini Live](https://ai.google.dev/gemini-api/docs/live), [Nano-banana](https://ai.google.dev/gemini-api/docs/image-generation) and [Lyria](https://ai.google.dev/gemini-api/docs/music-generation).
 *   **[Try it on Cloud Run (as long as I have credits)](goo.gle/giom-magic-mirror)**
 *   **Project repo:** [https://github.com/Giom-V/magic-mirror](https://github.com/Giom-V/magic-mirror)
 
