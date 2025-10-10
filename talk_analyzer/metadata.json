@@ -1,0 +1,5 @@
+{
+  "name": "Talk Analyzer AI",
+  "description": "Upload a talk recording, audio file, or provide a YouTube link to get an in-depth analysis and constructive feedback powered by Gemini. Engage in a follow-up chat to refine your public speaking skills.",
+  "requestFramePermissions": []
+}
